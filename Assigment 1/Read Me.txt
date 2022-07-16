@@ -1,1 +1,83 @@
-These are my solutions , there may be wrong answers.
+Assignment 2: 
+(1) Write a C Function that prints the cube of any number.
+(2) Write a C Function that takes one character and checks if it alphabet 
+or not.
+(3) Write a C Function that check if the number if positive or negative.
+(4) Write a C Function that return the addition or subtraction or 
+multiplication or division for two numbers. The function should take the 
+required operation and two numbers as arguments. It also should check 
+that the input operation is one of those operation that mentioned before 
+and if not it should return error. The function should be implemented 
+using switch case.
+(5) Write a C function to check if the input is an even number or an odd
+number, if even number return 0 if odd number return 1.
+Example: 
+Input 7, Output = 1 (Odd)
+Input 6, Output = 0 (Even)
+(6) Write C Function that converts the any letter from lowercase to 
+uppercase.
+(7) Write a C Function that reads two integers and checks if the first is 
+multiple of the second.
+(8)Write a C Function that display Prime Numbers between Intervals (two 
+numbers) by Making Function.
+(9)Write a C Function that swaps the value of two integer numbers.
+(10) You are designing a poster which prints out numbers with a unique 
+style applied to each of them. The styling is based on the number of 
+closed paths or holes present in a giver number. The number of holes 
+that each of the digits from 0 to 9 have are equal to the number of closed 
+paths in the digit. Their values are:
+ 1, 2, 3, 5 and 7 = 0 holes.
+ 0, 4, 6, and 9 = 1 hole.
+ 8 = 2 holes.
+Given a number, you must determine the sum of the number of holes for 
+all of its digits. For example, the number 819 has 3 holes.
+Function Description
+Complete the function countHoles. The function must return an integer 
+denoting the total number of holes in num.
+(11) Write a C function that returns 1 if the input number is a power of 2 
+and return 0 if the input number is not power of 2.
+For example: 1, 2 and 16 are power of 2.
+ 0, 10 and 30 are not power of 2.
+(12) Write a C function that calculates the required heater activation time 
+according to the input temperature of water.
+- if input temperature is from 0 to 30, then required heating time = 7 
+mins.
+- if input temperature is from 30 to 60, then required heating time = 5 
+mins.
+- if input temperature is from 60 to 90, then required heating time = 3 
+mins.
+- if input temperature is more than 90, then required heating time = 1 
+mins.
+- if temperature is invalid (more than 100), return 0
+Example:
+Input = 10  output = 7
+Input = 35  output = 5
+(13) In this challenge write a function to add two floating numbers. 
+Determine the integer floor of the sum. The floor is the truncated float 
+value, anything after the decimal point is dropped. For instance 
+floor(1.1+3.05)=floor(4.15)=4
+(14) Write a C Function that calculate the Fibonacci series using recursive 
+method.
+The Fibonacci Series : 0,1,1,2,3,5,8,13,21,…
+(15) Write a C function to count the number of 1’s in an unsigned 32-bit
+integer.
+(16) Write a C function to count the number of 1’s in an unsigned 8-bit
+integer.
+(17) Given two integers: L and R, Find the maximal value of A xor B where 
+A and B satisfy the condition L =< A <= B <= R Constrains: 1 <= L <= R <= 
+1000
+Input format: the input contains two lines first line contains L and next 
+line contains R.
+Output format: The maximum value of A xor B
+(18) Given a positive integer z, check if z can be written as 𝑝
+𝑞
+, where p 
+and q are positive integers than 1, if z can be written as 𝑝
+𝑞
+return 1 else 
+return 0.
+Description:
+A positive integer that needs to be determined if it can be expressed as a 
+power of square number.
+(19) Write a C function that return 0 if a given number is a power of 3, 
+otherwise return 1 (except 3 to the power of 0).
