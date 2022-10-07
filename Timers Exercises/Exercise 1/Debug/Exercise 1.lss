@@ -1,0 +1,136 @@
+
+Exercise 1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000b0  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000104  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000104  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000134  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000028  00000000  00000000  00000170  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000005ed  00000000  00000000  00000198  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000578  00000000  00000000  00000785  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000217  00000000  00000000  00000cfd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000034  00000000  00000000  00000f14  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000338  00000000  00000000  00000f48  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000024  00000000  00000000  00001280  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000018  00000000  00000000  000012a4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 42 00 	call	0x84	; 0x84 <main>
+  64:	0c 94 56 00 	jmp	0xac	; 0xac <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <Timer0_Delay>:
+#include <avr/io.h>
+
+void Timer0_Delay(void){
+	
+	
+	TCNT0 = 0x00;
+  6c:	12 be       	out	0x32, r1	; 50
+	TCCR0 |= (1<<CS02) | (1<<CS00) ;
+  6e:	83 b7       	in	r24, 0x33	; 51
+  70:	85 60       	ori	r24, 0x05	; 5
+  72:	83 bf       	out	0x33, r24	; 51
+	while(!(TIFR & (1<<TOV0)));
+  74:	08 b6       	in	r0, 0x38	; 56
+  76:	00 fe       	sbrs	r0, 0
+  78:	fd cf       	rjmp	.-6      	; 0x74 <Timer0_Delay+0x8>
+	TCCR0 = 0x00;
+  7a:	13 be       	out	0x33, r1	; 51
+	TIFR |= (1<<TOV0);
+  7c:	88 b7       	in	r24, 0x38	; 56
+  7e:	81 60       	ori	r24, 0x01	; 1
+  80:	88 bf       	out	0x38, r24	; 56
+  82:	08 95       	ret
+
+00000084 <main>:
+
+int main(void)
+{
+	/* Replace with your application code */
+	
+	DDRC |= (1<<PC0);
+  84:	84 b3       	in	r24, 0x14	; 20
+  86:	81 60       	ori	r24, 0x01	; 1
+  88:	84 bb       	out	0x14, r24	; 20
+	PORTC &= ~(1<<PC0);
+  8a:	85 b3       	in	r24, 0x15	; 21
+  8c:	8e 7f       	andi	r24, 0xFE	; 254
+  8e:	85 bb       	out	0x15, r24	; 21
+	while (1)
+	{
+		PORTC ^= (1<<PC0);
+  90:	95 b3       	in	r25, 0x15	; 21
+  92:	81 e0       	ldi	r24, 0x01	; 1
+  94:	89 27       	eor	r24, r25
+  96:	85 bb       	out	0x15, r24	; 21
+		for(int i = 0 ; i<2;i++)
+  98:	c0 e0       	ldi	r28, 0x00	; 0
+  9a:	d0 e0       	ldi	r29, 0x00	; 0
+  9c:	03 c0       	rjmp	.+6      	; 0xa4 <main+0x20>
+		Timer0_Delay();
+  9e:	0e 94 36 00 	call	0x6c	; 0x6c <Timer0_Delay>
+	DDRC |= (1<<PC0);
+	PORTC &= ~(1<<PC0);
+	while (1)
+	{
+		PORTC ^= (1<<PC0);
+		for(int i = 0 ; i<2;i++)
+  a2:	21 96       	adiw	r28, 0x01	; 1
+  a4:	c2 30       	cpi	r28, 0x02	; 2
+  a6:	d1 05       	cpc	r29, r1
+  a8:	d4 f3       	brlt	.-12     	; 0x9e <main+0x1a>
+  aa:	f2 cf       	rjmp	.-28     	; 0x90 <main+0xc>
+
+000000ac <_exit>:
+  ac:	f8 94       	cli
+
+000000ae <__stop_program>:
+  ae:	ff cf       	rjmp	.-2      	; 0xae <__stop_program>
