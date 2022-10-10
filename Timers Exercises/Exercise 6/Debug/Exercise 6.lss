@@ -1,0 +1,144 @@
+
+Exercise 6.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000ca  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000011e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000011e  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000150  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000028  00000000  00000000  0000018c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000711  00000000  00000000  000001b4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000060d  00000000  00000000  000008c5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000026c  00000000  00000000  00000ed2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000034  00000000  00000000  00001140  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000038c  00000000  00000000  00001174  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000000bd  00000000  00000000  00001500  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000018  00000000  00000000  000015bd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 3e 00 	call	0x7c	; 0x7c <main>
+  64:	0c 94 63 00 	jmp	0xc6	; 0xc6 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <Timer0_PWM_Init>:
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+void Timer0_PWM_Init(unsigned char ticks){
+	DDRB |= (1<<PB3);
+  6c:	97 b3       	in	r25, 0x17	; 23
+  6e:	98 60       	ori	r25, 0x08	; 8
+  70:	97 bb       	out	0x17, r25	; 23
+	TCNT0 = 0x00;
+  72:	12 be       	out	0x32, r1	; 50
+	OCR0 = ticks;
+  74:	8c bf       	out	0x3c, r24	; 60
+	TCCR0 = (1<<WGM00) | (1<<WGM01) | (1<<COM01) | (1<<CS01);
+  76:	8a e6       	ldi	r24, 0x6A	; 106
+  78:	83 bf       	out	0x33, r24	; 51
+  7a:	08 95       	ret
+
+0000007c <main>:
+	
+}
+int main(void)
+{
+    /* Replace with your application code */
+	Timer0_PWM_Init(64);
+  7c:	80 e4       	ldi	r24, 0x40	; 64
+  7e:	0e 94 36 00 	call	0x6c	; 0x6c <Timer0_PWM_Init>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  82:	2f e3       	ldi	r18, 0x3F	; 63
+  84:	82 e4       	ldi	r24, 0x42	; 66
+  86:	9f e0       	ldi	r25, 0x0F	; 15
+  88:	21 50       	subi	r18, 0x01	; 1
+  8a:	80 40       	sbci	r24, 0x00	; 0
+  8c:	90 40       	sbci	r25, 0x00	; 0
+  8e:	e1 f7       	brne	.-8      	; 0x88 <main+0xc>
+  90:	00 c0       	rjmp	.+0      	; 0x92 <main+0x16>
+  92:	00 00       	nop
+	_delay_ms(5000);
+	Timer0_PWM_Init(128);
+  94:	80 e8       	ldi	r24, 0x80	; 128
+  96:	0e 94 36 00 	call	0x6c	; 0x6c <Timer0_PWM_Init>
+  9a:	2f e3       	ldi	r18, 0x3F	; 63
+  9c:	82 e4       	ldi	r24, 0x42	; 66
+  9e:	9f e0       	ldi	r25, 0x0F	; 15
+  a0:	21 50       	subi	r18, 0x01	; 1
+  a2:	80 40       	sbci	r24, 0x00	; 0
+  a4:	90 40       	sbci	r25, 0x00	; 0
+  a6:	e1 f7       	brne	.-8      	; 0xa0 <main+0x24>
+  a8:	00 c0       	rjmp	.+0      	; 0xaa <main+0x2e>
+  aa:	00 00       	nop
+	_delay_ms(5000);
+	Timer0_PWM_Init(192);
+  ac:	80 ec       	ldi	r24, 0xC0	; 192
+  ae:	0e 94 36 00 	call	0x6c	; 0x6c <Timer0_PWM_Init>
+  b2:	2f e3       	ldi	r18, 0x3F	; 63
+  b4:	82 e4       	ldi	r24, 0x42	; 66
+  b6:	9f e0       	ldi	r25, 0x0F	; 15
+  b8:	21 50       	subi	r18, 0x01	; 1
+  ba:	80 40       	sbci	r24, 0x00	; 0
+  bc:	90 40       	sbci	r25, 0x00	; 0
+  be:	e1 f7       	brne	.-8      	; 0xb8 <main+0x3c>
+  c0:	00 c0       	rjmp	.+0      	; 0xc2 <main+0x46>
+  c2:	00 00       	nop
+  c4:	ff cf       	rjmp	.-2      	; 0xc4 <main+0x48>
+
+000000c6 <_exit>:
+  c6:	f8 94       	cli
+
+000000c8 <__stop_program>:
+  c8:	ff cf       	rjmp	.-2      	; 0xc8 <__stop_program>
