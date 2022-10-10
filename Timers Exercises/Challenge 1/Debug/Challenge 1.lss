@@ -1,0 +1,180 @@
+
+Challenge 1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000fa  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000016e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  00800060  00800060  0000016e  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000016e  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001a0  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000030  00000000  00000000  000001dc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000619  00000000  00000000  0000020c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000592  00000000  00000000  00000825  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000022e  00000000  00000000  00000db7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000054  00000000  00000000  00000fe8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000368  00000000  00000000  0000103c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000003c  00000000  00000000  000013a4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000020  00000000  00000000  000013e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__vector_9>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	20 e0       	ldi	r18, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a2 36       	cpi	r26, 0x62	; 98
+  6c:	b2 07       	cpc	r27, r18
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 71 00 	call	0xe2	; 0xe2 <main>
+  74:	0c 94 7b 00 	jmp	0xf6	; 0xf6 <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <__vector_9>:
+
+volatile unsigned char interruptcounter = 0; //123
+volatile unsigned char sevensegmentcounter = 0;
+
+
+ISR(TIMER0_OVF_vect){
+  7c:	1f 92       	push	r1
+  7e:	0f 92       	push	r0
+  80:	0f b6       	in	r0, 0x3f	; 63
+  82:	0f 92       	push	r0
+  84:	11 24       	eor	r1, r1
+  86:	8f 93       	push	r24
+	interruptcounter++;
+  88:	80 91 61 00 	lds	r24, 0x0061	; 0x800061 <interruptcounter>
+  8c:	8f 5f       	subi	r24, 0xFF	; 255
+  8e:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <interruptcounter>
+	if (interruptcounter == 123)
+  92:	80 91 61 00 	lds	r24, 0x0061	; 0x800061 <interruptcounter>
+  96:	8b 37       	cpi	r24, 0x7B	; 123
+  98:	89 f4       	brne	.+34     	; 0xbc <__vector_9+0x40>
+	{
+		sevensegmentcounter++;
+  9a:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  9e:	8f 5f       	subi	r24, 0xFF	; 255
+  a0:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+		if(sevensegmentcounter > 9)
+  a4:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  a8:	8a 30       	cpi	r24, 0x0A	; 10
+  aa:	10 f0       	brcs	.+4      	; 0xb0 <__vector_9+0x34>
+		sevensegmentcounter = 0;
+  ac:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__DATA_REGION_ORIGIN__>
+		PORTC = sevensegmentcounter & 0x0F;
+  b0:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  b4:	8f 70       	andi	r24, 0x0F	; 15
+  b6:	85 bb       	out	0x15, r24	; 21
+		
+		
+		interruptcounter = 0;
+  b8:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <interruptcounter>
+	}
+	
+}
+  bc:	8f 91       	pop	r24
+  be:	0f 90       	pop	r0
+  c0:	0f be       	out	0x3f, r0	; 63
+  c2:	0f 90       	pop	r0
+  c4:	1f 90       	pop	r1
+  c6:	18 95       	reti
+
+000000c8 <Timer0_Init>:
+
+void Timer0_Init(void){
+	
+	SREG&= ~(1<<7);
+  c8:	8f b7       	in	r24, 0x3f	; 63
+  ca:	8f 77       	andi	r24, 0x7F	; 127
+  cc:	8f bf       	out	0x3f, r24	; 63
+	TCNT0 = 0x00;
+  ce:	12 be       	out	0x32, r1	; 50
+	TIMSK |= (1<<TOIE0);
+  d0:	89 b7       	in	r24, 0x39	; 57
+  d2:	81 60       	ori	r24, 0x01	; 1
+  d4:	89 bf       	out	0x39, r24	; 57
+	TCCR0 = (1<<FOC0) | (1<<CS02);
+  d6:	84 e8       	ldi	r24, 0x84	; 132
+  d8:	83 bf       	out	0x33, r24	; 51
+	SREG |= (1<<7);
+  da:	8f b7       	in	r24, 0x3f	; 63
+  dc:	80 68       	ori	r24, 0x80	; 128
+  de:	8f bf       	out	0x3f, r24	; 63
+  e0:	08 95       	ret
+
+000000e2 <main>:
+}
+
+int main(void)
+{
+	/* Replace with your application code */
+	DDRC |= 0x0F;
+  e2:	84 b3       	in	r24, 0x14	; 20
+  e4:	8f 60       	ori	r24, 0x0F	; 15
+  e6:	84 bb       	out	0x14, r24	; 20
+	PORTC = sevensegmentcounter & 0x0F;
+  e8:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  ec:	8f 70       	andi	r24, 0x0F	; 15
+  ee:	85 bb       	out	0x15, r24	; 21
+	Timer0_Init();
+  f0:	0e 94 64 00 	call	0xc8	; 0xc8 <Timer0_Init>
+  f4:	ff cf       	rjmp	.-2      	; 0xf4 <main+0x12>
+
+000000f6 <_exit>:
+  f6:	f8 94       	cli
+
+000000f8 <__stop_program>:
+  f8:	ff cf       	rjmp	.-2      	; 0xf8 <__stop_program>
