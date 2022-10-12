@@ -24,3 +24,4 @@ paused.
 11. Configure External Interrupt INT2 with falling edge. Connect a push button with the 
 internal pull-up resistor. If a falling edge detected the Stop Watch time should be
 resumed.
+.
