@@ -1,0 +1,606 @@
+
+Project 2.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000396  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000040a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  00800060  00800060  0000040a  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000040a  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000043c  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000060  00000000  00000000  00000478  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000008f1  00000000  00000000  000004d8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000640  00000000  00000000  00000dc9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000048d  00000000  00000000  00001409  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000e4  00000000  00000000  00001898  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000436  00000000  00000000  0000197c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000001e9  00000000  00000000  00001db2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000050  00000000  00000000  00001f9b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 55 00 	jmp	0xaa	; 0xaa <__vector_1>
+   8:	0c 94 63 00 	jmp	0xc6	; 0xc6 <__vector_2>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__vector_6>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 72 00 	jmp	0xe4	; 0xe4 <__vector_18>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	20 e0       	ldi	r18, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a2 36       	cpi	r26, 0x62	; 98
+  6c:	b2 07       	cpc	r27, r18
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 b6 00 	call	0x16c	; 0x16c <main>
+  74:	0c 94 c9 01 	jmp	0x392	; 0x392 <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <__vector_6>:
+#include <avr/interrupt.h>
+#include <util/delay.h>
+
+volatile unsigned int g_ticks; // Every tick equals 1 second
+
+ISR(TIMER1_COMPA_vect) {
+  7c:	1f 92       	push	r1
+  7e:	0f 92       	push	r0
+  80:	0f b6       	in	r0, 0x3f	; 63
+  82:	0f 92       	push	r0
+  84:	11 24       	eor	r1, r1
+  86:	8f 93       	push	r24
+  88:	9f 93       	push	r25
+	g_ticks++;
+  8a:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  8e:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  92:	01 96       	adiw	r24, 0x01	; 1
+  94:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  98:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+}
+  9c:	9f 91       	pop	r25
+  9e:	8f 91       	pop	r24
+  a0:	0f 90       	pop	r0
+  a2:	0f be       	out	0x3f, r0	; 63
+  a4:	0f 90       	pop	r0
+  a6:	1f 90       	pop	r1
+  a8:	18 95       	reti
+
+000000aa <__vector_1>:
+
+
+ISR(INT0_vect){
+  aa:	1f 92       	push	r1
+  ac:	0f 92       	push	r0
+  ae:	0f b6       	in	r0, 0x3f	; 63
+  b0:	0f 92       	push	r0
+  b2:	11 24       	eor	r1, r1
+	g_ticks = 0; // Reset counter
+  b4:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  b8:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__DATA_REGION_ORIGIN__>
+}
+  bc:	0f 90       	pop	r0
+  be:	0f be       	out	0x3f, r0	; 63
+  c0:	0f 90       	pop	r0
+  c2:	1f 90       	pop	r1
+  c4:	18 95       	reti
+
+000000c6 <__vector_2>:
+
+ISR(INT1_vect){
+  c6:	1f 92       	push	r1
+  c8:	0f 92       	push	r0
+  ca:	0f b6       	in	r0, 0x3f	; 63
+  cc:	0f 92       	push	r0
+  ce:	11 24       	eor	r1, r1
+  d0:	8f 93       	push	r24
+	TCCR1B &= ~(1<<CS10) & ~(1<<CS11); // Stop Counter or clock
+  d2:	8e b5       	in	r24, 0x2e	; 46
+  d4:	8c 7f       	andi	r24, 0xFC	; 252
+  d6:	8e bd       	out	0x2e, r24	; 46
+}
+  d8:	8f 91       	pop	r24
+  da:	0f 90       	pop	r0
+  dc:	0f be       	out	0x3f, r0	; 63
+  de:	0f 90       	pop	r0
+  e0:	1f 90       	pop	r1
+  e2:	18 95       	reti
+
+000000e4 <__vector_18>:
+
+ISR(INT2_vect){
+  e4:	1f 92       	push	r1
+  e6:	0f 92       	push	r0
+  e8:	0f b6       	in	r0, 0x3f	; 63
+  ea:	0f 92       	push	r0
+  ec:	11 24       	eor	r1, r1
+  ee:	8f 93       	push	r24
+	TCCR1B |= (1<<CS11) | (1<<CS10); // Resume clock
+  f0:	8e b5       	in	r24, 0x2e	; 46
+  f2:	83 60       	ori	r24, 0x03	; 3
+  f4:	8e bd       	out	0x2e, r24	; 46
+}
+  f6:	8f 91       	pop	r24
+  f8:	0f 90       	pop	r0
+  fa:	0f be       	out	0x3f, r0	; 63
+  fc:	0f 90       	pop	r0
+  fe:	1f 90       	pop	r1
+ 100:	18 95       	reti
+
+00000102 <INT0_Init>:
+
+void INT0_Init(void){
+	DDRD &= ~(1<<PD2); // Configure External Interrupt INT0
+ 102:	81 b3       	in	r24, 0x11	; 17
+ 104:	8b 7f       	andi	r24, 0xFB	; 251
+ 106:	81 bb       	out	0x11, r24	; 17
+	PORTD |= (1<<PD2); //Enable Internal Pull-up resistor
+ 108:	82 b3       	in	r24, 0x12	; 18
+ 10a:	84 60       	ori	r24, 0x04	; 4
+ 10c:	82 bb       	out	0x12, r24	; 18
+	MCUCR |= (ISC01); // Falling edge
+ 10e:	85 b7       	in	r24, 0x35	; 53
+ 110:	81 60       	ori	r24, 0x01	; 1
+ 112:	85 bf       	out	0x35, r24	; 53
+	MCUCR &= ~(1<<ISC00); // Falling Edge
+ 114:	85 b7       	in	r24, 0x35	; 53
+ 116:	8e 7f       	andi	r24, 0xFE	; 254
+ 118:	85 bf       	out	0x35, r24	; 53
+	GICR |= (1<<INT0); // Enable module Interrupt
+ 11a:	8b b7       	in	r24, 0x3b	; 59
+ 11c:	80 64       	ori	r24, 0x40	; 64
+ 11e:	8b bf       	out	0x3b, r24	; 59
+ 120:	08 95       	ret
+
+00000122 <INT1_Init>:
+	
+}
+
+void INT1_Init(void){
+	DDRD &= ~(1<<PD3); // Configure External Interrupt INT1
+ 122:	81 b3       	in	r24, 0x11	; 17
+ 124:	87 7f       	andi	r24, 0xF7	; 247
+ 126:	81 bb       	out	0x11, r24	; 17
+	MCUCR |= (1<<ISC11) | (1<<ISC10); //Rising Edge
+ 128:	85 b7       	in	r24, 0x35	; 53
+ 12a:	8c 60       	ori	r24, 0x0C	; 12
+ 12c:	85 bf       	out	0x35, r24	; 53
+	GICR |= (1<<INT1); // Enable module Interrupt
+ 12e:	8b b7       	in	r24, 0x3b	; 59
+ 130:	80 68       	ori	r24, 0x80	; 128
+ 132:	8b bf       	out	0x3b, r24	; 59
+ 134:	08 95       	ret
+
+00000136 <INT2_Init>:
+	
+}
+
+
+void INT2_Init(void){
+	DDRB &= ~(1<<PB2); // Configure External Interrupt INT2
+ 136:	87 b3       	in	r24, 0x17	; 23
+ 138:	8b 7f       	andi	r24, 0xFB	; 251
+ 13a:	87 bb       	out	0x17, r24	; 23
+	PORTB |= (1<<PB2);// Configure internal pull-up resistor
+ 13c:	88 b3       	in	r24, 0x18	; 24
+ 13e:	84 60       	ori	r24, 0x04	; 4
+ 140:	88 bb       	out	0x18, r24	; 24
+	MCUCSR &= ~(1<<ISC2); //Falling edge
+ 142:	84 b7       	in	r24, 0x34	; 52
+ 144:	8f 7b       	andi	r24, 0xBF	; 191
+ 146:	84 bf       	out	0x34, r24	; 52
+	GICR |= (1<<INT2);// Enable module Interrupt
+ 148:	8b b7       	in	r24, 0x3b	; 59
+ 14a:	80 62       	ori	r24, 0x20	; 32
+ 14c:	8b bf       	out	0x3b, r24	; 59
+ 14e:	08 95       	ret
+
+00000150 <Timer1_CTC_Init>:
+}
+
+void Timer1_CTC_Init(void){
+	TCNT1 = 0x0000; // Counter is zero now
+ 150:	1d bc       	out	0x2d, r1	; 45
+ 152:	1c bc       	out	0x2c, r1	; 44
+	OCR1A = 15625; // We need 15625 ticks to get interrupt every 1 second
+ 154:	89 e0       	ldi	r24, 0x09	; 9
+ 156:	9d e3       	ldi	r25, 0x3D	; 61
+ 158:	9b bd       	out	0x2b, r25	; 43
+ 15a:	8a bd       	out	0x2a, r24	; 42
+	TCCR1A = (1<<FOC1A);// Non - PWM Mode
+ 15c:	88 e0       	ldi	r24, 0x08	; 8
+ 15e:	8f bd       	out	0x2f, r24	; 47
+	TIMSK |= (1<<OCIE1A) ; // Enable Channel A interrupt
+ 160:	89 b7       	in	r24, 0x39	; 57
+ 162:	80 61       	ori	r24, 0x10	; 16
+ 164:	89 bf       	out	0x39, r24	; 57
+	TCCR1B = (1<<WGM12) | (1<<CS11) | (1<<CS10) ;
+ 166:	8b e0       	ldi	r24, 0x0B	; 11
+ 168:	8e bd       	out	0x2e, r24	; 46
+ 16a:	08 95       	ret
+
+0000016c <main>:
+
+
+int main(void)
+{
+    /* Replace with your application code */
+	SREG |= (1<<7); //Enable Global Interrupts
+ 16c:	8f b7       	in	r24, 0x3f	; 63
+ 16e:	80 68       	ori	r24, 0x80	; 128
+ 170:	8f bf       	out	0x3f, r24	; 63
+	DDRC |= 0x0F; // Configure for 7447 decoder 4-pins to the first 4-pins in PORTC
+ 172:	84 b3       	in	r24, 0x14	; 20
+ 174:	8f 60       	ori	r24, 0x0F	; 15
+ 176:	84 bb       	out	0x14, r24	; 20
+	DDRA |= 0x3F; // Configure first 6-pins in PORTA as the enable/disable pins for the six 7-segments
+ 178:	8a b3       	in	r24, 0x1a	; 26
+ 17a:	8f 63       	ori	r24, 0x3F	; 63
+ 17c:	8a bb       	out	0x1a, r24	; 26
+	
+	PORTA |= 0x3F; // Enable all seven segments
+ 17e:	8b b3       	in	r24, 0x1b	; 27
+ 180:	8f 63       	ori	r24, 0x3F	; 63
+ 182:	8b bb       	out	0x1b, r24	; 27
+	PORTC &= 0xF0; // Zero the counter
+ 184:	85 b3       	in	r24, 0x15	; 21
+ 186:	80 7f       	andi	r24, 0xF0	; 240
+ 188:	85 bb       	out	0x15, r24	; 21
+	
+	Timer1_CTC_Init();
+ 18a:	0e 94 a8 00 	call	0x150	; 0x150 <Timer1_CTC_Init>
+	INT0_Init();
+ 18e:	0e 94 81 00 	call	0x102	; 0x102 <INT0_Init>
+	INT1_Init();
+ 192:	0e 94 91 00 	call	0x122	; 0x122 <INT1_Init>
+	INT2_Init();
+ 196:	0e 94 9b 00 	call	0x136	; 0x136 <INT2_Init>
+	
+	
+    while (1) 
+    {
+		
+		hours = g_ticks / 3600; // Get hours in from HH:MM:SS
+ 19a:	e0 90 60 00 	lds	r14, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 19e:	f0 90 61 00 	lds	r15, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 1a2:	c0 e1       	ldi	r28, 0x10	; 16
+ 1a4:	de e0       	ldi	r29, 0x0E	; 14
+ 1a6:	c7 01       	movw	r24, r14
+ 1a8:	be 01       	movw	r22, r28
+ 1aa:	0e 94 a6 01 	call	0x34c	; 0x34c <__udivmodhi4>
+ 1ae:	8b 01       	movw	r16, r22
+		minutes = (g_ticks - (3600 * hours)) / 60; // Get minutes in form HH:MM:SS
+ 1b0:	20 91 60 00 	lds	r18, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 1b4:	30 91 61 00 	lds	r19, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 1b8:	6c 9f       	mul	r22, r28
+ 1ba:	f0 01       	movw	r30, r0
+ 1bc:	6d 9f       	mul	r22, r29
+ 1be:	f0 0d       	add	r31, r0
+ 1c0:	7c 9f       	mul	r23, r28
+ 1c2:	f0 0d       	add	r31, r0
+ 1c4:	11 24       	eor	r1, r1
+ 1c6:	69 01       	movw	r12, r18
+ 1c8:	ce 1a       	sub	r12, r30
+ 1ca:	df 0a       	sbc	r13, r31
+ 1cc:	96 01       	movw	r18, r12
+ 1ce:	a9 e8       	ldi	r26, 0x89	; 137
+ 1d0:	b8 e8       	ldi	r27, 0x88	; 136
+ 1d2:	0e 94 ba 01 	call	0x374	; 0x374 <__umulhisi3>
+ 1d6:	5c 01       	movw	r10, r24
+ 1d8:	b6 94       	lsr	r11
+ 1da:	a7 94       	ror	r10
+ 1dc:	b6 94       	lsr	r11
+ 1de:	a7 94       	ror	r10
+ 1e0:	b6 94       	lsr	r11
+ 1e2:	a7 94       	ror	r10
+ 1e4:	b6 94       	lsr	r11
+ 1e6:	a7 94       	ror	r10
+ 1e8:	b6 94       	lsr	r11
+ 1ea:	a7 94       	ror	r10
+		seconds = g_ticks - (hours*3600) - (minutes*60); // Get seconds in from of HH:MM:SS
+ 1ec:	40 91 60 00 	lds	r20, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 1f0:	50 91 61 00 	lds	r21, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 1f4:	4e 1b       	sub	r20, r30
+ 1f6:	5f 0b       	sbc	r21, r31
+ 1f8:	2c e3       	ldi	r18, 0x3C	; 60
+ 1fa:	2a 9d       	mul	r18, r10
+ 1fc:	c0 01       	movw	r24, r0
+ 1fe:	2b 9d       	mul	r18, r11
+ 200:	90 0d       	add	r25, r0
+ 202:	11 24       	eor	r1, r1
+ 204:	48 1b       	sub	r20, r24
+ 206:	59 0b       	sbc	r21, r25
+		
+		seconds_0 = seconds % 10; 
+ 208:	9a 01       	movw	r18, r20
+ 20a:	ad ec       	ldi	r26, 0xCD	; 205
+ 20c:	bc ec       	ldi	r27, 0xCC	; 204
+ 20e:	0e 94 ba 01 	call	0x374	; 0x374 <__umulhisi3>
+ 212:	fc 01       	movw	r30, r24
+ 214:	f6 95       	lsr	r31
+ 216:	e7 95       	ror	r30
+ 218:	f6 95       	lsr	r31
+ 21a:	e7 95       	ror	r30
+ 21c:	f6 95       	lsr	r31
+ 21e:	e7 95       	ror	r30
+ 220:	cf 01       	movw	r24, r30
+ 222:	88 0f       	add	r24, r24
+ 224:	99 1f       	adc	r25, r25
+ 226:	ee 0f       	add	r30, r30
+ 228:	ff 1f       	adc	r31, r31
+ 22a:	ee 0f       	add	r30, r30
+ 22c:	ff 1f       	adc	r31, r31
+ 22e:	ee 0f       	add	r30, r30
+ 230:	ff 1f       	adc	r31, r31
+ 232:	e8 0f       	add	r30, r24
+ 234:	f9 1f       	adc	r31, r25
+ 236:	2e 1b       	sub	r18, r30
+ 238:	3f 0b       	sbc	r19, r31
+ 23a:	f9 01       	movw	r30, r18
+		seconds_1 = seconds / 10;
+ 23c:	9a 01       	movw	r18, r20
+ 23e:	0e 94 ba 01 	call	0x374	; 0x374 <__umulhisi3>
+ 242:	ec 01       	movw	r28, r24
+ 244:	d6 95       	lsr	r29
+ 246:	c7 95       	ror	r28
+ 248:	d6 95       	lsr	r29
+ 24a:	c7 95       	ror	r28
+ 24c:	d6 95       	lsr	r29
+ 24e:	c7 95       	ror	r28
+		
+		minutes_0 = minutes % 10;
+ 250:	95 01       	movw	r18, r10
+ 252:	0e 94 ba 01 	call	0x374	; 0x374 <__umulhisi3>
+ 256:	ac 01       	movw	r20, r24
+ 258:	56 95       	lsr	r21
+ 25a:	47 95       	ror	r20
+ 25c:	56 95       	lsr	r21
+ 25e:	47 95       	ror	r20
+ 260:	56 95       	lsr	r21
+ 262:	47 95       	ror	r20
+ 264:	ca 01       	movw	r24, r20
+ 266:	88 0f       	add	r24, r24
+ 268:	99 1f       	adc	r25, r25
+ 26a:	44 0f       	add	r20, r20
+ 26c:	55 1f       	adc	r21, r21
+ 26e:	44 0f       	add	r20, r20
+ 270:	55 1f       	adc	r21, r21
+ 272:	44 0f       	add	r20, r20
+ 274:	55 1f       	adc	r21, r21
+ 276:	48 0f       	add	r20, r24
+ 278:	59 1f       	adc	r21, r25
+ 27a:	c5 01       	movw	r24, r10
+ 27c:	84 1b       	sub	r24, r20
+ 27e:	95 0b       	sbc	r25, r21
+ 280:	ac 01       	movw	r20, r24
+		minutes_1 = minutes / 10;
+ 282:	96 01       	movw	r18, r12
+ 284:	36 95       	lsr	r19
+ 286:	27 95       	ror	r18
+ 288:	36 95       	lsr	r19
+ 28a:	27 95       	ror	r18
+ 28c:	36 95       	lsr	r19
+ 28e:	27 95       	ror	r18
+ 290:	af e4       	ldi	r26, 0x4F	; 79
+ 292:	bb e1       	ldi	r27, 0x1B	; 27
+ 294:	0e 94 ba 01 	call	0x374	; 0x374 <__umulhisi3>
+ 298:	6c 01       	movw	r12, r24
+ 29a:	d6 94       	lsr	r13
+ 29c:	c7 94       	ror	r12
+ 29e:	d6 94       	lsr	r13
+ 2a0:	c7 94       	ror	r12
+ 2a2:	d6 94       	lsr	r13
+ 2a4:	c7 94       	ror	r12
+		
+		hours_0 = hours % 10;
+ 2a6:	98 01       	movw	r18, r16
+ 2a8:	ad ec       	ldi	r26, 0xCD	; 205
+ 2aa:	bc ec       	ldi	r27, 0xCC	; 204
+ 2ac:	0e 94 ba 01 	call	0x374	; 0x374 <__umulhisi3>
+ 2b0:	96 95       	lsr	r25
+ 2b2:	87 95       	ror	r24
+ 2b4:	96 95       	lsr	r25
+ 2b6:	87 95       	ror	r24
+ 2b8:	96 95       	lsr	r25
+ 2ba:	87 95       	ror	r24
+ 2bc:	9c 01       	movw	r18, r24
+ 2be:	22 0f       	add	r18, r18
+ 2c0:	33 1f       	adc	r19, r19
+ 2c2:	88 0f       	add	r24, r24
+ 2c4:	99 1f       	adc	r25, r25
+ 2c6:	88 0f       	add	r24, r24
+ 2c8:	99 1f       	adc	r25, r25
+ 2ca:	88 0f       	add	r24, r24
+ 2cc:	99 1f       	adc	r25, r25
+ 2ce:	82 0f       	add	r24, r18
+ 2d0:	93 1f       	adc	r25, r19
+ 2d2:	98 01       	movw	r18, r16
+ 2d4:	28 1b       	sub	r18, r24
+ 2d6:	39 0b       	sbc	r19, r25
+ 2d8:	c9 01       	movw	r24, r18
+		hours_1 = hours / 10;
+ 2da:	21 e0       	ldi	r18, 0x01	; 1
+ 2dc:	30 ea       	ldi	r19, 0xA0	; 160
+ 2de:	e3 16       	cp	r14, r19
+ 2e0:	3c e8       	ldi	r19, 0x8C	; 140
+ 2e2:	f3 06       	cpc	r15, r19
+ 2e4:	08 f4       	brcc	.+2      	; 0x2e8 <__EEPROM_REGION_LENGTH__+0xe8>
+ 2e6:	20 e0       	ldi	r18, 0x00	; 0
+		
+		PORTA = (1<<PA0);             //Enable First Seven segment
+ 2e8:	91 e0       	ldi	r25, 0x01	; 1
+ 2ea:	9b bb       	out	0x1b, r25	; 27
+		PORTC = (0x0F) & seconds_0;	 // Show seconds 0
+ 2ec:	ef 70       	andi	r30, 0x0F	; 15
+ 2ee:	e5 bb       	out	0x15, r30	; 21
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 2f0:	31 e2       	ldi	r19, 0x21	; 33
+ 2f2:	3a 95       	dec	r19
+ 2f4:	f1 f7       	brne	.-4      	; 0x2f2 <__EEPROM_REGION_LENGTH__+0xf2>
+ 2f6:	00 00       	nop
+		
+		_delay_us(100);
+		
+		PORTA = (1<<PA1);            //Enable Second seven segment
+ 2f8:	92 e0       	ldi	r25, 0x02	; 2
+ 2fa:	9b bb       	out	0x1b, r25	; 27
+		PORTC = (0x0F) & seconds_1;  // Show seconds 1
+ 2fc:	cf 70       	andi	r28, 0x0F	; 15
+ 2fe:	c5 bb       	out	0x15, r28	; 21
+ 300:	31 e2       	ldi	r19, 0x21	; 33
+ 302:	3a 95       	dec	r19
+ 304:	f1 f7       	brne	.-4      	; 0x302 <__EEPROM_REGION_LENGTH__+0x102>
+ 306:	00 00       	nop
+		
+		_delay_us(100);
+		 
+		PORTA = (1<<PA2);           // Enable Third seven segment
+ 308:	94 e0       	ldi	r25, 0x04	; 4
+ 30a:	9b bb       	out	0x1b, r25	; 27
+		PORTC = (0x0F) & minutes_0; // Show minutes 0
+ 30c:	4f 70       	andi	r20, 0x0F	; 15
+ 30e:	45 bb       	out	0x15, r20	; 21
+ 310:	31 e2       	ldi	r19, 0x21	; 33
+ 312:	3a 95       	dec	r19
+ 314:	f1 f7       	brne	.-4      	; 0x312 <__EEPROM_REGION_LENGTH__+0x112>
+ 316:	00 00       	nop
+		
+		_delay_us(100);
+		
+		PORTA = (1<<PA3);          // Enable Fourth seven segment
+ 318:	98 e0       	ldi	r25, 0x08	; 8
+ 31a:	9b bb       	out	0x1b, r25	; 27
+		PORTC = (0x0F) & minutes_1;// Show minutes 1
+ 31c:	9c 2d       	mov	r25, r12
+ 31e:	9f 70       	andi	r25, 0x0F	; 15
+ 320:	95 bb       	out	0x15, r25	; 21
+ 322:	31 e2       	ldi	r19, 0x21	; 33
+ 324:	3a 95       	dec	r19
+ 326:	f1 f7       	brne	.-4      	; 0x324 <__EEPROM_REGION_LENGTH__+0x124>
+ 328:	00 00       	nop
+		
+		_delay_us(100);
+		
+		PORTA = (1<<PA4);         // Enable fifth segment
+ 32a:	90 e1       	ldi	r25, 0x10	; 16
+ 32c:	9b bb       	out	0x1b, r25	; 27
+		PORTC = (0x0F) & hours_0; // Show hours 0
+ 32e:	8f 70       	andi	r24, 0x0F	; 15
+ 330:	85 bb       	out	0x15, r24	; 21
+ 332:	81 e2       	ldi	r24, 0x21	; 33
+ 334:	8a 95       	dec	r24
+ 336:	f1 f7       	brne	.-4      	; 0x334 <__EEPROM_REGION_LENGTH__+0x134>
+ 338:	00 00       	nop
+		
+		_delay_us(100);
+		
+		PORTA = (1<<PA5);        // Enable Sixth segment
+ 33a:	80 e2       	ldi	r24, 0x20	; 32
+ 33c:	8b bb       	out	0x1b, r24	; 27
+		PORTC = (0x0F) & hours_1;// Show hours 1
+ 33e:	2f 70       	andi	r18, 0x0F	; 15
+ 340:	25 bb       	out	0x15, r18	; 21
+ 342:	91 e2       	ldi	r25, 0x21	; 33
+ 344:	9a 95       	dec	r25
+ 346:	f1 f7       	brne	.-4      	; 0x344 <__EEPROM_REGION_LENGTH__+0x144>
+ 348:	00 00       	nop
+ 34a:	27 cf       	rjmp	.-434    	; 0x19a <main+0x2e>
+
+0000034c <__udivmodhi4>:
+ 34c:	aa 1b       	sub	r26, r26
+ 34e:	bb 1b       	sub	r27, r27
+ 350:	51 e1       	ldi	r21, 0x11	; 17
+ 352:	07 c0       	rjmp	.+14     	; 0x362 <__udivmodhi4_ep>
+
+00000354 <__udivmodhi4_loop>:
+ 354:	aa 1f       	adc	r26, r26
+ 356:	bb 1f       	adc	r27, r27
+ 358:	a6 17       	cp	r26, r22
+ 35a:	b7 07       	cpc	r27, r23
+ 35c:	10 f0       	brcs	.+4      	; 0x362 <__udivmodhi4_ep>
+ 35e:	a6 1b       	sub	r26, r22
+ 360:	b7 0b       	sbc	r27, r23
+
+00000362 <__udivmodhi4_ep>:
+ 362:	88 1f       	adc	r24, r24
+ 364:	99 1f       	adc	r25, r25
+ 366:	5a 95       	dec	r21
+ 368:	a9 f7       	brne	.-22     	; 0x354 <__udivmodhi4_loop>
+ 36a:	80 95       	com	r24
+ 36c:	90 95       	com	r25
+ 36e:	bc 01       	movw	r22, r24
+ 370:	cd 01       	movw	r24, r26
+ 372:	08 95       	ret
+
+00000374 <__umulhisi3>:
+ 374:	a2 9f       	mul	r26, r18
+ 376:	b0 01       	movw	r22, r0
+ 378:	b3 9f       	mul	r27, r19
+ 37a:	c0 01       	movw	r24, r0
+ 37c:	a3 9f       	mul	r26, r19
+ 37e:	70 0d       	add	r23, r0
+ 380:	81 1d       	adc	r24, r1
+ 382:	11 24       	eor	r1, r1
+ 384:	91 1d       	adc	r25, r1
+ 386:	b2 9f       	mul	r27, r18
+ 388:	70 0d       	add	r23, r0
+ 38a:	81 1d       	adc	r24, r1
+ 38c:	11 24       	eor	r1, r1
+ 38e:	91 1d       	adc	r25, r1
+ 390:	08 95       	ret
+
+00000392 <_exit>:
+ 392:	f8 94       	cli
+
+00000394 <__stop_program>:
+ 394:	ff cf       	rjmp	.-2      	; 0x394 <__stop_program>
