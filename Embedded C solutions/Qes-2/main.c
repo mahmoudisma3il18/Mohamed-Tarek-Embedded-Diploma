@@ -1,22 +1,18 @@
 #include <stdio.h>
 
+int sum = 0;
 
-#define CALCULATE_SUM(array,size,sum)\
-{\
-int i ;\
-for(i = 0 ; i < size ; i++)\
+#define sumOfArray(Array,size) \
 { \
-   sum+= array[i];\
-}\
-}
-
-
+int i = 0 ; \
+for(i;i<size;i++){ \
+sum+= Array[i]; \
+} \
+    }
 int main()
 {
-    int array[5] = {1,2,3,4,5};
-    int sum=0;
-    CALCULATE_SUM(array,5,sum);
-
-    printf("SUM OF ARRAY : %d\n ",sum);
+    int array[] = {1,2,3,4,5};
+    sumOfArray(array,5);
+    printf("Sum : %d \n",sum);
 
 }
