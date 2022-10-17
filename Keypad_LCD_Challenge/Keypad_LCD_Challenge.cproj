@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>LCD_4Bits</AssemblyName>
-    <Name>LCD_4Bits</Name>
-    <RootNamespace>LCD_4Bits</RootNamespace>
+    <AssemblyName>Keypad_LCD_Challenge</AssemblyName>
+    <Name>Keypad_LCD_Challenge</Name>
+    <RootNamespace>Keypad_LCD_Challenge</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
@@ -121,6 +121,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="common_macros.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="keypad.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="keypad.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="lcd.c">
