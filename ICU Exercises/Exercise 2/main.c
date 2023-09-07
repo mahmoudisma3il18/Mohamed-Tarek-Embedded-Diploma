@@ -1,69 +1,89 @@
 /*
  * Exercise 2.c
  *
- * Created: 11/3/2022 1:14:13 AM
- * Author : modyb
+ * Created: 8/16/2023 6:36:34 PM
+ * Author : Mahmoud Ismail
  */ 
 
+#define      F_CPU       1000000
+
+
+/*--------------------------- Includes ---------------------------*/
 #include <avr/io.h>
-#include "ICU.h"
-#include "lcd.h"
+#include "../Exercise 2/MCAL/ICU.h"
+#include "../Exercise 2/HAL/lcd.h"
 
-volatile uint8_t g_edgeCounter;
-volatile uint16_t g_timeHigh;
-volatile uint16_t g_timePeriodAndHigh;
 
-void edgeProscessing(void)
-{
+/*------------------------- Global Vars ----------------------------*/
+
+uint8_t   g_edgeCounter;
+uint16_t  g_periodTime;
+uint16_t  g_highTime;
+uint16_t  g_periodAndhighTime;
+
+
+void edgeProcessing(void) {
+	
 	g_edgeCounter++;
+	
 	if (g_edgeCounter == 1)
 	{
 		ICU_clearTimer();
-		ICU_setEdgeDetection(FALLING_EDGE);
+		ICU_setEdgeDetectionType(FALLING_EDGE);
 	}
 	else if (g_edgeCounter == 2)
 	{
-		g_timeHigh = ICU_getValue();
-		ICU_setEdgeDetection(RISING_EDGE);
+		g_highTime = ICU_getTimerValue();
+		ICU_setEdgeDetectionType(RISING_EDGE);
 	}
 	else if (g_edgeCounter == 3)
 	{
-		ICU_setEdgeDetection(FALLING_EDGE);
-	}
+		g_periodTime = ICU_getTimerValue();
+		ICU_setEdgeDetectionType(FALLING_EDGE);
+	} 
 	else if (g_edgeCounter == 4)
 	{
-		g_timePeriodAndHigh = ICU_getValue();
-		ICU_setEdgeDetection(RISING_EDGE);
+		g_periodAndhighTime = ICU_getTimerValue();
+		ICU_setEdgeDetectionType(RISING_EDGE);
+		ICU_clearTimer();
 	}
+	
+	
 }
+
 
 int main(void)
 {
     /* Replace with your application code */
 	
-	SREG |= (1<<7); // Enable Golabl interrupts
+	/* 1. Enable Global Interrupts */
+	SREG |= (1<<7);
 	
+	/* 2. Init LCD */
 	LCD_init();
 	
-	ICU_ConfigType configType = {F_CPU_CLOCK_1,RISING_EDGE};
-		
-	ICU_setCallBack(edgeProscessing);	
-		
-	ICU_init(&configType);
+	/* 3. Configure ICU */
+	ICU_configType ICUvar = {F_CPU_CLOCK,RISING_EDGE};
+	ICU_setCallBack(edgeProcessing);
+	ICU_init(&ICUvar);	
 	
-	LCD_displayString("Period :");
+	/* 4. Variable to hold period */
+	uint16_t period = 0;
 	
-	uint16_t period;
-	
+	/* 5. Display String */
+	LCD_displayString("Period ");
 		
     while (1) 
     {
 		if (g_edgeCounter == 4)
 		{
-			g_edgeCounter = 0;
-			ICU_deinit();
-			period = (g_timePeriodAndHigh - g_timeHigh) /1000;
+			period = (g_periodAndhighTime - g_highTime);
+			LCD_displayString("   "); /* Delete old values */
+			LCD_goToRowColumn(0,8);
 			LCD_integrToString(period);
+			LCD_displayString("us");
+			g_edgeCounter = 0;
+			
 		}
     }
 }

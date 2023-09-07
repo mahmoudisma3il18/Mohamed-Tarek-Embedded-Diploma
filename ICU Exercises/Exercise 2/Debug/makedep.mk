@@ -2,9 +2,9 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-ICU.C
-
-lcd.c
+HAL\lcd.c
 
 main.c
+
+MCAL\ICU.c
 

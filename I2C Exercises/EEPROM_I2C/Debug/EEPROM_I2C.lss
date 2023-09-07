@@ -1,0 +1,1096 @@
+
+EEPROM_I2C.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000004d8  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000006  00800060  000004d8  0000056c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000005  00800066  00800066  00000572  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000572  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000005a4  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 000000b8  00000000  00000000  000005e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000de8  00000000  00000000  00000698  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000007b9  00000000  00000000  00001480  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000761  00000000  00000000  00001c39  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  0000019c  00000000  00000000  0000239c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000004c4  00000000  00000000  00002538  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000066c  00000000  00000000  000029fc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 000000b8  00000000  00000000  00003068  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e8 ed       	ldi	r30, 0xD8	; 216
+  68:	f4 e0       	ldi	r31, 0x04	; 4
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	a6 36       	cpi	r26, 0x66	; 102
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+
+00000076 <__do_clear_bss>:
+  76:	20 e0       	ldi	r18, 0x00	; 0
+  78:	a6 e6       	ldi	r26, 0x66	; 102
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	ab 36       	cpi	r26, 0x6B	; 107
+  82:	b2 07       	cpc	r27, r18
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 02 02 	call	0x404	; 0x404 <main>
+  8a:	0c 94 6a 02 	jmp	0x4d4	; 0x4d4 <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <EEPROM_init>:
+#include "external_eeprom.h"
+
+void EEPROM_init(void) {
+	
+	/* Initialize I2C with give Frequency */
+	I2C_init(I2C_SCLK_FM_400k);
+  92:	60 e8       	ldi	r22, 0x80	; 128
+  94:	7a e1       	ldi	r23, 0x1A	; 26
+  96:	86 e0       	ldi	r24, 0x06	; 6
+  98:	90 e0       	ldi	r25, 0x00	; 0
+  9a:	0e 94 92 01 	call	0x324	; 0x324 <I2C_init>
+  9e:	08 95       	ret
+
+000000a0 <EEPROM_writeByte>:
+}
+
+uint8_t EEPROM_writeByte(uint16_t address , uint8_t data) {
+  a0:	1f 93       	push	r17
+  a2:	cf 93       	push	r28
+  a4:	df 93       	push	r29
+  a6:	ec 01       	movw	r28, r24
+  a8:	16 2f       	mov	r17, r22
+	
+	/* Send Start Condition */
+	I2C_generateStart();
+  aa:	0e 94 e0 01 	call	0x3c0	; 0x3c0 <I2C_generateStart>
+	
+	/* Error if Start condition is not send Successfully */
+	if(I2C_getStatus() != I2C_START_SENT)
+  ae:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+  b2:	88 30       	cpi	r24, 0x08	; 8
+  b4:	09 f5       	brne	.+66     	; 0xf8 <EEPROM_writeByte+0x58>
+	
+	/* R/W : 0 (Write)
+	Send MSB (A10,A9,A8) of address
+	Send 0b1010 Id of EEPROM
+	*/	
+	I2C_masterWrite((uint8_t)((0xA0) | ((address & 0x700) >> 7)));	
+  b6:	ce 01       	movw	r24, r28
+  b8:	88 27       	eor	r24, r24
+  ba:	97 70       	andi	r25, 0x07	; 7
+  bc:	88 0f       	add	r24, r24
+  be:	89 2f       	mov	r24, r25
+  c0:	88 1f       	adc	r24, r24
+  c2:	99 0b       	sbc	r25, r25
+  c4:	91 95       	neg	r25
+  c6:	80 6a       	ori	r24, 0xA0	; 160
+  c8:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <I2C_masterWrite>
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_SLA_W_ACK)
+  cc:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+  d0:	88 31       	cpi	r24, 0x18	; 24
+  d2:	a1 f4       	brne	.+40     	; 0xfc <EEPROM_writeByte+0x5c>
+		return ERROR;
+		
+	/* Send A0 to A7 of address */	
+	I2C_masterWrite((uint8_t)address);
+  d4:	8c 2f       	mov	r24, r28
+  d6:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <I2C_masterWrite>
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_DATA_SENT_ACK )
+  da:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+  de:	88 32       	cpi	r24, 0x28	; 40
+  e0:	79 f4       	brne	.+30     	; 0x100 <EEPROM_writeByte+0x60>
+		return ERROR;
+		
+	/* Send Data */
+	I2C_masterWrite(data);
+  e2:	81 2f       	mov	r24, r17
+  e4:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <I2C_masterWrite>
+	
+	/* Check if data send correctly */
+	if(I2C_getStatus() != I2C_DATA_SENT_ACK )	
+  e8:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+  ec:	88 32       	cpi	r24, 0x28	; 40
+  ee:	51 f4       	brne	.+20     	; 0x104 <EEPROM_writeByte+0x64>
+		return ERROR;
+	
+	/* Send Stop Condition */	
+	I2C_generateStop();	
+  f0:	0e 94 e7 01 	call	0x3ce	; 0x3ce <I2C_generateStop>
+	
+    return SUCCESS;
+  f4:	81 e0       	ldi	r24, 0x01	; 1
+  f6:	07 c0       	rjmp	.+14     	; 0x106 <EEPROM_writeByte+0x66>
+	/* Send Start Condition */
+	I2C_generateStart();
+	
+	/* Error if Start condition is not send Successfully */
+	if(I2C_getStatus() != I2C_START_SENT)
+		return ERROR;
+  f8:	80 e0       	ldi	r24, 0x00	; 0
+  fa:	05 c0       	rjmp	.+10     	; 0x106 <EEPROM_writeByte+0x66>
+	*/	
+	I2C_masterWrite((uint8_t)((0xA0) | ((address & 0x700) >> 7)));	
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_SLA_W_ACK)
+		return ERROR;
+  fc:	80 e0       	ldi	r24, 0x00	; 0
+  fe:	03 c0       	rjmp	.+6      	; 0x106 <EEPROM_writeByte+0x66>
+	/* Send A0 to A7 of address */	
+	I2C_masterWrite((uint8_t)address);
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_DATA_SENT_ACK )
+		return ERROR;
+ 100:	80 e0       	ldi	r24, 0x00	; 0
+ 102:	01 c0       	rjmp	.+2      	; 0x106 <EEPROM_writeByte+0x66>
+	/* Send Data */
+	I2C_masterWrite(data);
+	
+	/* Check if data send correctly */
+	if(I2C_getStatus() != I2C_DATA_SENT_ACK )	
+		return ERROR;
+ 104:	80 e0       	ldi	r24, 0x00	; 0
+	
+	/* Send Stop Condition */	
+	I2C_generateStop();	
+	
+    return SUCCESS;
+}
+ 106:	df 91       	pop	r29
+ 108:	cf 91       	pop	r28
+ 10a:	1f 91       	pop	r17
+ 10c:	08 95       	ret
+
+0000010e <EEPROM_readByte>:
+
+uint8_t EEPROM_readByte(uint16_t address , uint8_t *data) {
+ 10e:	ef 92       	push	r14
+ 110:	ff 92       	push	r15
+ 112:	0f 93       	push	r16
+ 114:	1f 93       	push	r17
+ 116:	cf 93       	push	r28
+ 118:	df 93       	push	r29
+ 11a:	ec 01       	movw	r28, r24
+ 11c:	8b 01       	movw	r16, r22
+	
+	/* Send Start Condition */
+	I2C_generateStart();
+ 11e:	0e 94 e0 01 	call	0x3c0	; 0x3c0 <I2C_generateStart>
+	
+	/* Error if Start condition is not send Successfully */
+	if(I2C_getStatus() != I2C_START_SENT)
+ 122:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 126:	88 30       	cpi	r24, 0x08	; 8
+ 128:	91 f5       	brne	.+100    	; 0x18e <EEPROM_readByte+0x80>
+	
+	/* R/W : 0 (Write)
+	Send MSB (A10,A9,A8) of address
+	Send 0b1010 Id of EEPROM
+	*/	
+	I2C_masterWrite((uint8_t)((0xA0) | ((address & 0x700) >> 7)));	
+ 12a:	7e 01       	movw	r14, r28
+ 12c:	ee 24       	eor	r14, r14
+ 12e:	87 e0       	ldi	r24, 0x07	; 7
+ 130:	f8 22       	and	r15, r24
+ 132:	ee 0c       	add	r14, r14
+ 134:	ef 2c       	mov	r14, r15
+ 136:	ee 1c       	adc	r14, r14
+ 138:	ff 08       	sbc	r15, r15
+ 13a:	f1 94       	neg	r15
+ 13c:	8e 2d       	mov	r24, r14
+ 13e:	80 6a       	ori	r24, 0xA0	; 160
+ 140:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <I2C_masterWrite>
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_SLA_W_ACK)
+ 144:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 148:	88 31       	cpi	r24, 0x18	; 24
+ 14a:	19 f5       	brne	.+70     	; 0x192 <EEPROM_readByte+0x84>
+		return ERROR;
+		
+	/* Send A0 to A7 of address */	
+	I2C_masterWrite((uint8_t)address);
+ 14c:	8c 2f       	mov	r24, r28
+ 14e:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <I2C_masterWrite>
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_DATA_SENT_ACK )
+ 152:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 156:	88 32       	cpi	r24, 0x28	; 40
+ 158:	f1 f4       	brne	.+60     	; 0x196 <EEPROM_readByte+0x88>
+		return ERROR;
+		
+	/* Send a Repeated Start */
+	I2C_generateStart();
+ 15a:	0e 94 e0 01 	call	0x3c0	; 0x3c0 <I2C_generateStart>
+	
+	/* Check if repeated start condition is successful */
+	if (I2C_getStatus() != I2C_REP_START_SENT)
+ 15e:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 162:	80 31       	cpi	r24, 0x10	; 16
+ 164:	d1 f4       	brne	.+52     	; 0x19a <EEPROM_readByte+0x8c>
+		
+	/* R/W : 1 (Read)
+	Send MSB (A10,A9,A8) of address
+	Send 0b1010 Id of EEPROM
+	*/	
+	I2C_masterWrite((uint8_t)((0xA0) | ((address & 0x700) >> 7) | 0x01));	
+ 166:	8e 2d       	mov	r24, r14
+ 168:	81 6a       	ori	r24, 0xA1	; 161
+ 16a:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <I2C_masterWrite>
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_SLA_R_ACK)
+ 16e:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 172:	80 34       	cpi	r24, 0x40	; 64
+ 174:	a1 f4       	brne	.+40     	; 0x19e <EEPROM_readByte+0x90>
+		return ERROR;	
+		
+	/* Read Data */	
+	*data = I2C_masterReadWithNACK();	
+ 176:	0e 94 f8 01 	call	0x3f0	; 0x3f0 <I2C_masterReadWithNACK>
+ 17a:	f8 01       	movw	r30, r16
+ 17c:	80 83       	st	Z, r24
+	
+	/* Check if data is read successfully */
+	if (I2C_getStatus() != I2C_DATA_RECEIVED_NACK)
+ 17e:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 182:	88 35       	cpi	r24, 0x58	; 88
+ 184:	71 f4       	brne	.+28     	; 0x1a2 <EEPROM_readByte+0x94>
+		return ERROR;
+
+   /* Send Stop Condition */
+   I2C_generateStop();
+ 186:	0e 94 e7 01 	call	0x3ce	; 0x3ce <I2C_generateStop>
+   
+   return SUCCESS;
+ 18a:	81 e0       	ldi	r24, 0x01	; 1
+ 18c:	0b c0       	rjmp	.+22     	; 0x1a4 <EEPROM_readByte+0x96>
+	/* Send Start Condition */
+	I2C_generateStart();
+	
+	/* Error if Start condition is not send Successfully */
+	if(I2C_getStatus() != I2C_START_SENT)
+		return ERROR;
+ 18e:	80 e0       	ldi	r24, 0x00	; 0
+ 190:	09 c0       	rjmp	.+18     	; 0x1a4 <EEPROM_readByte+0x96>
+	*/	
+	I2C_masterWrite((uint8_t)((0xA0) | ((address & 0x700) >> 7)));	
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_SLA_W_ACK)
+		return ERROR;
+ 192:	80 e0       	ldi	r24, 0x00	; 0
+ 194:	07 c0       	rjmp	.+14     	; 0x1a4 <EEPROM_readByte+0x96>
+	/* Send A0 to A7 of address */	
+	I2C_masterWrite((uint8_t)address);
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_DATA_SENT_ACK )
+		return ERROR;
+ 196:	80 e0       	ldi	r24, 0x00	; 0
+ 198:	05 c0       	rjmp	.+10     	; 0x1a4 <EEPROM_readByte+0x96>
+	/* Send a Repeated Start */
+	I2C_generateStart();
+	
+	/* Check if repeated start condition is successful */
+	if (I2C_getStatus() != I2C_REP_START_SENT)
+		return ERROR;
+ 19a:	80 e0       	ldi	r24, 0x00	; 0
+ 19c:	03 c0       	rjmp	.+6      	; 0x1a4 <EEPROM_readByte+0x96>
+	*/	
+	I2C_masterWrite((uint8_t)((0xA0) | ((address & 0x700) >> 7) | 0x01));	
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_SLA_R_ACK)
+		return ERROR;	
+ 19e:	80 e0       	ldi	r24, 0x00	; 0
+ 1a0:	01 c0       	rjmp	.+2      	; 0x1a4 <EEPROM_readByte+0x96>
+	/* Read Data */	
+	*data = I2C_masterReadWithNACK();	
+	
+	/* Check if data is read successfully */
+	if (I2C_getStatus() != I2C_DATA_RECEIVED_NACK)
+		return ERROR;
+ 1a2:	80 e0       	ldi	r24, 0x00	; 0
+
+   /* Send Stop Condition */
+   I2C_generateStop();
+   
+   return SUCCESS;
+}
+ 1a4:	df 91       	pop	r29
+ 1a6:	cf 91       	pop	r28
+ 1a8:	1f 91       	pop	r17
+ 1aa:	0f 91       	pop	r16
+ 1ac:	ff 90       	pop	r15
+ 1ae:	ef 90       	pop	r14
+ 1b0:	08 95       	ret
+
+000001b2 <EEPPROM_writePage>:
+
+
+uint8_t EEPPROM_writePage(uint16_t address , uint8_t *data , uint8_t size) {
+ 1b2:	ef 92       	push	r14
+ 1b4:	ff 92       	push	r15
+ 1b6:	1f 93       	push	r17
+ 1b8:	cf 93       	push	r28
+ 1ba:	df 93       	push	r29
+ 1bc:	ec 01       	movw	r28, r24
+ 1be:	7b 01       	movw	r14, r22
+ 1c0:	14 2f       	mov	r17, r20
+	
+	/* Send Start Condition */
+	I2C_generateStart();
+ 1c2:	0e 94 e0 01 	call	0x3c0	; 0x3c0 <I2C_generateStart>
+	
+	/* Error if Start condition is not send Successfully */
+	if(I2C_getStatus() != I2C_START_SENT)
+ 1c6:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 1ca:	88 30       	cpi	r24, 0x08	; 8
+ 1cc:	69 f5       	brne	.+90     	; 0x228 <__EEPROM_REGION_LENGTH__+0x28>
+		return ERROR;
+	
+	/* R/W : 0 (Write)
+	Send MSB (A10,A9,A8) of address
+	Send 0b1010 Id of EEPROM */	
+	I2C_masterWrite((uint8_t)((0xA0) | ((address & 0x700) >> 7)));
+ 1ce:	ce 01       	movw	r24, r28
+ 1d0:	88 27       	eor	r24, r24
+ 1d2:	97 70       	andi	r25, 0x07	; 7
+ 1d4:	88 0f       	add	r24, r24
+ 1d6:	89 2f       	mov	r24, r25
+ 1d8:	88 1f       	adc	r24, r24
+ 1da:	99 0b       	sbc	r25, r25
+ 1dc:	91 95       	neg	r25
+ 1de:	80 6a       	ori	r24, 0xA0	; 160
+ 1e0:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <I2C_masterWrite>
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_SLA_W_ACK)
+ 1e4:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 1e8:	88 31       	cpi	r24, 0x18	; 24
+ 1ea:	01 f5       	brne	.+64     	; 0x22c <__EEPROM_REGION_LENGTH__+0x2c>
+		return ERROR;
+		
+	/* Send A0 to A7 of address */	
+	I2C_masterWrite((uint8_t)address);
+ 1ec:	8c 2f       	mov	r24, r28
+ 1ee:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <I2C_masterWrite>
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_DATA_SENT_ACK )
+ 1f2:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 1f6:	88 32       	cpi	r24, 0x28	; 40
+ 1f8:	d9 f4       	brne	.+54     	; 0x230 <__EEPROM_REGION_LENGTH__+0x30>
+ 1fa:	c0 e0       	ldi	r28, 0x00	; 0
+ 1fc:	d0 e0       	ldi	r29, 0x00	; 0
+ 1fe:	0b c0       	rjmp	.+22     	; 0x216 <__EEPROM_REGION_LENGTH__+0x16>
+		return ERROR;
+		
+	for (int i = 0 ; i < size ; i++)
+	{
+		/* Send Data */
+		I2C_masterWrite(data[i]);
+ 200:	f7 01       	movw	r30, r14
+ 202:	ec 0f       	add	r30, r28
+ 204:	fd 1f       	adc	r31, r29
+ 206:	80 81       	ld	r24, Z
+ 208:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <I2C_masterWrite>
+		
+		/* Check if data send correctly */
+		if(I2C_getStatus() != I2C_DATA_SENT_ACK )
+ 20c:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 210:	88 32       	cpi	r24, 0x28	; 40
+ 212:	81 f4       	brne	.+32     	; 0x234 <__EEPROM_REGION_LENGTH__+0x34>
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_DATA_SENT_ACK )
+		return ERROR;
+		
+	for (int i = 0 ; i < size ; i++)
+ 214:	21 96       	adiw	r28, 0x01	; 1
+ 216:	81 2f       	mov	r24, r17
+ 218:	90 e0       	ldi	r25, 0x00	; 0
+ 21a:	c8 17       	cp	r28, r24
+ 21c:	d9 07       	cpc	r29, r25
+ 21e:	84 f3       	brlt	.-32     	; 0x200 <__EEPROM_REGION_LENGTH__>
+		if(I2C_getStatus() != I2C_DATA_SENT_ACK )
+		return ERROR;
+	}
+		
+	/* Send Stop Condition */	
+	I2C_generateStop();	
+ 220:	0e 94 e7 01 	call	0x3ce	; 0x3ce <I2C_generateStop>
+	
+    return SUCCESS;
+ 224:	81 e0       	ldi	r24, 0x01	; 1
+ 226:	07 c0       	rjmp	.+14     	; 0x236 <__EEPROM_REGION_LENGTH__+0x36>
+	/* Send Start Condition */
+	I2C_generateStart();
+	
+	/* Error if Start condition is not send Successfully */
+	if(I2C_getStatus() != I2C_START_SENT)
+		return ERROR;
+ 228:	80 e0       	ldi	r24, 0x00	; 0
+ 22a:	05 c0       	rjmp	.+10     	; 0x236 <__EEPROM_REGION_LENGTH__+0x36>
+	Send 0b1010 Id of EEPROM */	
+	I2C_masterWrite((uint8_t)((0xA0) | ((address & 0x700) >> 7)));
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_SLA_W_ACK)
+		return ERROR;
+ 22c:	80 e0       	ldi	r24, 0x00	; 0
+ 22e:	03 c0       	rjmp	.+6      	; 0x236 <__EEPROM_REGION_LENGTH__+0x36>
+	/* Send A0 to A7 of address */	
+	I2C_masterWrite((uint8_t)address);
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_DATA_SENT_ACK )
+		return ERROR;
+ 230:	80 e0       	ldi	r24, 0x00	; 0
+ 232:	01 c0       	rjmp	.+2      	; 0x236 <__EEPROM_REGION_LENGTH__+0x36>
+		/* Send Data */
+		I2C_masterWrite(data[i]);
+		
+		/* Check if data send correctly */
+		if(I2C_getStatus() != I2C_DATA_SENT_ACK )
+		return ERROR;
+ 234:	80 e0       	ldi	r24, 0x00	; 0
+		
+	/* Send Stop Condition */	
+	I2C_generateStop();	
+	
+    return SUCCESS;
+}
+ 236:	df 91       	pop	r29
+ 238:	cf 91       	pop	r28
+ 23a:	1f 91       	pop	r17
+ 23c:	ff 90       	pop	r15
+ 23e:	ef 90       	pop	r14
+ 240:	08 95       	ret
+
+00000242 <EEPROM_readPage>:
+
+uint8_t EEPROM_readPage(uint16_t address , uint8_t *data , uint8_t size) {
+ 242:	cf 92       	push	r12
+ 244:	df 92       	push	r13
+ 246:	ef 92       	push	r14
+ 248:	ff 92       	push	r15
+ 24a:	1f 93       	push	r17
+ 24c:	cf 93       	push	r28
+ 24e:	df 93       	push	r29
+ 250:	ec 01       	movw	r28, r24
+ 252:	7b 01       	movw	r14, r22
+ 254:	14 2f       	mov	r17, r20
+	
+	/* Send Start Condition */
+	I2C_generateStart();
+ 256:	0e 94 e0 01 	call	0x3c0	; 0x3c0 <I2C_generateStart>
+	
+	/* Error if Start condition is not send Successfully */
+	if(I2C_getStatus() != I2C_START_SENT)
+ 25a:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 25e:	88 30       	cpi	r24, 0x08	; 8
+ 260:	09 f0       	breq	.+2      	; 0x264 <EEPROM_readPage+0x22>
+ 262:	4b c0       	rjmp	.+150    	; 0x2fa <EEPROM_readPage+0xb8>
+	
+	/* R/W : 0 (Write)
+	Send MSB (A10,A9,A8) of address
+	Send 0b1010 Id of EEPROM
+	*/	
+	I2C_masterWrite((uint8_t)((0xA0) | ((address & 0x700) >> 7)));	
+ 264:	6e 01       	movw	r12, r28
+ 266:	cc 24       	eor	r12, r12
+ 268:	87 e0       	ldi	r24, 0x07	; 7
+ 26a:	d8 22       	and	r13, r24
+ 26c:	cc 0c       	add	r12, r12
+ 26e:	cd 2c       	mov	r12, r13
+ 270:	cc 1c       	adc	r12, r12
+ 272:	dd 08       	sbc	r13, r13
+ 274:	d1 94       	neg	r13
+ 276:	8c 2d       	mov	r24, r12
+ 278:	80 6a       	ori	r24, 0xA0	; 160
+ 27a:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <I2C_masterWrite>
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_SLA_W_ACK)
+ 27e:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 282:	88 31       	cpi	r24, 0x18	; 24
+ 284:	e1 f5       	brne	.+120    	; 0x2fe <EEPROM_readPage+0xbc>
+		return ERROR;
+		
+	/* Send A0 to A7 of address */	
+	I2C_masterWrite((uint8_t)address);
+ 286:	8c 2f       	mov	r24, r28
+ 288:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <I2C_masterWrite>
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_DATA_SENT_ACK )
+ 28c:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 290:	88 32       	cpi	r24, 0x28	; 40
+ 292:	b9 f5       	brne	.+110    	; 0x302 <EEPROM_readPage+0xc0>
+		return ERROR;
+		
+	/* Send a Repeated Start */
+	I2C_generateStart();
+ 294:	0e 94 e0 01 	call	0x3c0	; 0x3c0 <I2C_generateStart>
+	
+	/* Check if repeated start condition is successful */
+	if (I2C_getStatus() != I2C_REP_START_SENT)
+ 298:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 29c:	80 31       	cpi	r24, 0x10	; 16
+ 29e:	99 f5       	brne	.+102    	; 0x306 <EEPROM_readPage+0xc4>
+		
+	/* R/W : 1 (Read)
+	Send MSB (A10,A9,A8) of address
+	Send 0b1010 Id of EEPROM
+	*/	
+	I2C_masterWrite((uint8_t)((0xA0) | ((address & 0x700) >> 7) | 0x01));	
+ 2a0:	8c 2d       	mov	r24, r12
+ 2a2:	81 6a       	ori	r24, 0xA1	; 161
+ 2a4:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <I2C_masterWrite>
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_SLA_R_ACK)
+ 2a8:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 2ac:	80 34       	cpi	r24, 0x40	; 64
+ 2ae:	69 f5       	brne	.+90     	; 0x30a <EEPROM_readPage+0xc8>
+ 2b0:	c0 e0       	ldi	r28, 0x00	; 0
+ 2b2:	d0 e0       	ldi	r29, 0x00	; 0
+ 2b4:	0b c0       	rjmp	.+22     	; 0x2cc <EEPROM_readPage+0x8a>
+		return ERROR;	
+		
+	for (int i = 0 ; i < size - 1 ; i++)
+	{
+		/* Read Data */
+		data[i] = I2C_masterReadWithACK();
+ 2b6:	0e 94 f1 01 	call	0x3e2	; 0x3e2 <I2C_masterReadWithACK>
+ 2ba:	f7 01       	movw	r30, r14
+ 2bc:	ec 0f       	add	r30, r28
+ 2be:	fd 1f       	adc	r31, r29
+ 2c0:	80 83       	st	Z, r24
+		
+		/* Check if data is read successfully */
+		if(I2C_getStatus() != I2C_DATA_RECEIVED_ACK)
+ 2c2:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 2c6:	80 35       	cpi	r24, 0x50	; 80
+ 2c8:	11 f5       	brne	.+68     	; 0x30e <EEPROM_readPage+0xcc>
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_SLA_R_ACK)
+		return ERROR;	
+		
+	for (int i = 0 ; i < size - 1 ; i++)
+ 2ca:	21 96       	adiw	r28, 0x01	; 1
+ 2cc:	81 2f       	mov	r24, r17
+ 2ce:	90 e0       	ldi	r25, 0x00	; 0
+ 2d0:	01 97       	sbiw	r24, 0x01	; 1
+ 2d2:	c8 17       	cp	r28, r24
+ 2d4:	d9 07       	cpc	r29, r25
+ 2d6:	7c f3       	brlt	.-34     	; 0x2b6 <EEPROM_readPage+0x74>
+		if(I2C_getStatus() != I2C_DATA_RECEIVED_ACK)
+			return ERROR;
+	}
+	
+	/* Read Data Last element and send NACK  */
+	data[size-1] = I2C_masterReadWithNACK();
+ 2d8:	81 2f       	mov	r24, r17
+ 2da:	90 e0       	ldi	r25, 0x00	; 0
+ 2dc:	01 97       	sbiw	r24, 0x01	; 1
+ 2de:	e7 01       	movw	r28, r14
+ 2e0:	c8 0f       	add	r28, r24
+ 2e2:	d9 1f       	adc	r29, r25
+ 2e4:	0e 94 f8 01 	call	0x3f0	; 0x3f0 <I2C_masterReadWithNACK>
+ 2e8:	88 83       	st	Y, r24
+	
+	/* Check if data is read successfully */
+	if(I2C_getStatus() != I2C_DATA_RECEIVED_NACK)
+ 2ea:	0e 94 ff 01 	call	0x3fe	; 0x3fe <I2C_getStatus>
+ 2ee:	88 35       	cpi	r24, 0x58	; 88
+ 2f0:	81 f4       	brne	.+32     	; 0x312 <EEPROM_readPage+0xd0>
+		return ERROR;
+	
+   /* Send Stop Condition */
+   I2C_generateStop();
+ 2f2:	0e 94 e7 01 	call	0x3ce	; 0x3ce <I2C_generateStop>
+   
+   return SUCCESS;
+ 2f6:	81 e0       	ldi	r24, 0x01	; 1
+ 2f8:	0d c0       	rjmp	.+26     	; 0x314 <EEPROM_readPage+0xd2>
+	/* Send Start Condition */
+	I2C_generateStart();
+	
+	/* Error if Start condition is not send Successfully */
+	if(I2C_getStatus() != I2C_START_SENT)
+		return ERROR;
+ 2fa:	80 e0       	ldi	r24, 0x00	; 0
+ 2fc:	0b c0       	rjmp	.+22     	; 0x314 <EEPROM_readPage+0xd2>
+	*/	
+	I2C_masterWrite((uint8_t)((0xA0) | ((address & 0x700) >> 7)));	
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_SLA_W_ACK)
+		return ERROR;
+ 2fe:	80 e0       	ldi	r24, 0x00	; 0
+ 300:	09 c0       	rjmp	.+18     	; 0x314 <EEPROM_readPage+0xd2>
+	/* Send A0 to A7 of address */	
+	I2C_masterWrite((uint8_t)address);
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_DATA_SENT_ACK )
+		return ERROR;
+ 302:	80 e0       	ldi	r24, 0x00	; 0
+ 304:	07 c0       	rjmp	.+14     	; 0x314 <EEPROM_readPage+0xd2>
+	/* Send a Repeated Start */
+	I2C_generateStart();
+	
+	/* Check if repeated start condition is successful */
+	if (I2C_getStatus() != I2C_REP_START_SENT)
+		return ERROR;
+ 306:	80 e0       	ldi	r24, 0x00	; 0
+ 308:	05 c0       	rjmp	.+10     	; 0x314 <EEPROM_readPage+0xd2>
+	*/	
+	I2C_masterWrite((uint8_t)((0xA0) | ((address & 0x700) >> 7) | 0x01));	
+	
+	/* Check if Slave address is sent successfully */
+	if (I2C_getStatus() != I2C_SLA_R_ACK)
+		return ERROR;	
+ 30a:	80 e0       	ldi	r24, 0x00	; 0
+ 30c:	03 c0       	rjmp	.+6      	; 0x314 <EEPROM_readPage+0xd2>
+		/* Read Data */
+		data[i] = I2C_masterReadWithACK();
+		
+		/* Check if data is read successfully */
+		if(I2C_getStatus() != I2C_DATA_RECEIVED_ACK)
+			return ERROR;
+ 30e:	80 e0       	ldi	r24, 0x00	; 0
+ 310:	01 c0       	rjmp	.+2      	; 0x314 <EEPROM_readPage+0xd2>
+	/* Read Data Last element and send NACK  */
+	data[size-1] = I2C_masterReadWithNACK();
+	
+	/* Check if data is read successfully */
+	if(I2C_getStatus() != I2C_DATA_RECEIVED_NACK)
+		return ERROR;
+ 312:	80 e0       	ldi	r24, 0x00	; 0
+	
+   /* Send Stop Condition */
+   I2C_generateStop();
+   
+   return SUCCESS;
+ 314:	df 91       	pop	r29
+ 316:	cf 91       	pop	r28
+ 318:	1f 91       	pop	r17
+ 31a:	ff 90       	pop	r15
+ 31c:	ef 90       	pop	r14
+ 31e:	df 90       	pop	r13
+ 320:	cf 90       	pop	r12
+ 322:	08 95       	ret
+
+00000324 <I2C_init>:
+}
+
+void I2C_deinit(void) {
+	
+	/*  Disable I2C */
+	TWCR &= ~(1<<TWEN);
+ 324:	9b 01       	movw	r18, r22
+ 326:	ac 01       	movw	r20, r24
+ 328:	22 0f       	add	r18, r18
+ 32a:	33 1f       	adc	r19, r19
+ 32c:	44 1f       	adc	r20, r20
+ 32e:	55 1f       	adc	r21, r21
+ 330:	60 e0       	ldi	r22, 0x00	; 0
+ 332:	72 e1       	ldi	r23, 0x12	; 18
+ 334:	8a e7       	ldi	r24, 0x7A	; 122
+ 336:	90 e0       	ldi	r25, 0x00	; 0
+ 338:	0e 94 48 02 	call	0x490	; 0x490 <__udivmodsi4>
+ 33c:	ba 01       	movw	r22, r20
+ 33e:	a9 01       	movw	r20, r18
+ 340:	48 50       	subi	r20, 0x08	; 8
+ 342:	51 09       	sbc	r21, r1
+ 344:	61 09       	sbc	r22, r1
+ 346:	71 09       	sbc	r23, r1
+ 348:	4b 30       	cpi	r20, 0x0B	; 11
+ 34a:	51 05       	cpc	r21, r1
+ 34c:	61 05       	cpc	r22, r1
+ 34e:	71 05       	cpc	r23, r1
+ 350:	40 f1       	brcs	.+80     	; 0x3a2 <I2C_init+0x7e>
+ 352:	49 32       	cpi	r20, 0x29	; 41
+ 354:	51 05       	cpc	r21, r1
+ 356:	61 05       	cpc	r22, r1
+ 358:	71 05       	cpc	r23, r1
+ 35a:	50 f4       	brcc	.+20     	; 0x370 <I2C_init+0x4c>
+ 35c:	76 95       	lsr	r23
+ 35e:	67 95       	ror	r22
+ 360:	57 95       	ror	r21
+ 362:	47 95       	ror	r20
+ 364:	76 95       	lsr	r23
+ 366:	67 95       	ror	r22
+ 368:	57 95       	ror	r21
+ 36a:	47 95       	ror	r20
+ 36c:	91 e0       	ldi	r25, 0x01	; 1
+ 36e:	1a c0       	rjmp	.+52     	; 0x3a4 <I2C_init+0x80>
+ 370:	41 3a       	cpi	r20, 0xA1	; 161
+ 372:	51 05       	cpc	r21, r1
+ 374:	61 05       	cpc	r22, r1
+ 376:	71 05       	cpc	r23, r1
+ 378:	50 f4       	brcc	.+20     	; 0x38e <I2C_init+0x6a>
+ 37a:	68 94       	set
+ 37c:	13 f8       	bld	r1, 3
+ 37e:	76 95       	lsr	r23
+ 380:	67 95       	ror	r22
+ 382:	57 95       	ror	r21
+ 384:	47 95       	ror	r20
+ 386:	16 94       	lsr	r1
+ 388:	d1 f7       	brne	.-12     	; 0x37e <I2C_init+0x5a>
+ 38a:	92 e0       	ldi	r25, 0x02	; 2
+ 38c:	0b c0       	rjmp	.+22     	; 0x3a4 <I2C_init+0x80>
+ 38e:	68 94       	set
+ 390:	15 f8       	bld	r1, 5
+ 392:	76 95       	lsr	r23
+ 394:	67 95       	ror	r22
+ 396:	57 95       	ror	r21
+ 398:	47 95       	ror	r20
+ 39a:	16 94       	lsr	r1
+ 39c:	d1 f7       	brne	.-12     	; 0x392 <I2C_init+0x6e>
+ 39e:	93 e0       	ldi	r25, 0x03	; 3
+ 3a0:	01 c0       	rjmp	.+2      	; 0x3a4 <I2C_init+0x80>
+ 3a2:	90 e0       	ldi	r25, 0x00	; 0
+ 3a4:	40 b9       	out	0x00, r20	; 0
+ 3a6:	81 b1       	in	r24, 0x01	; 1
+ 3a8:	8c 7f       	andi	r24, 0xFC	; 252
+ 3aa:	89 2b       	or	r24, r25
+ 3ac:	81 b9       	out	0x01, r24	; 1
+ 3ae:	82 b1       	in	r24, 0x02	; 2
+ 3b0:	84 60       	ori	r24, 0x04	; 4
+ 3b2:	82 b9       	out	0x02, r24	; 2
+ 3b4:	82 b1       	in	r24, 0x02	; 2
+ 3b6:	82 b9       	out	0x02, r24	; 2
+ 3b8:	86 b7       	in	r24, 0x36	; 54
+ 3ba:	84 60       	ori	r24, 0x04	; 4
+ 3bc:	86 bf       	out	0x36, r24	; 54
+ 3be:	08 95       	ret
+
+000003c0 <I2C_generateStart>:
+
+
+void I2C_generateStart(void) {
+	
+	/* Send START condition , clear TWINT flag  */
+	TWCR |= (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
+ 3c0:	86 b7       	in	r24, 0x36	; 54
+ 3c2:	84 6a       	ori	r24, 0xA4	; 164
+ 3c4:	86 bf       	out	0x36, r24	; 54
+	
+	/* Wait for TWINT Flag set. This indicates
+	that the START condition has been
+	transmitted */
+	while (BIT_IS_CLEAR(TWCR,TWINT));
+ 3c6:	06 b6       	in	r0, 0x36	; 54
+ 3c8:	07 fe       	sbrs	r0, 7
+ 3ca:	fd cf       	rjmp	.-6      	; 0x3c6 <I2C_generateStart+0x6>
+
+}
+ 3cc:	08 95       	ret
+
+000003ce <I2C_generateStop>:
+
+void I2C_generateStop(void) {
+	
+	/* Transmit STOP condition, Clear TWINT flag  */
+	TWCR = (1<<TWINT)|(1<<TWEN)|(1<<TWSTO);
+ 3ce:	84 e9       	ldi	r24, 0x94	; 148
+ 3d0:	86 bf       	out	0x36, r24	; 54
+ 3d2:	08 95       	ret
+
+000003d4 <I2C_masterWrite>:
+
+void I2C_masterWrite(uint8_t data) {
+	
+	/* Load data into TWDR Register. Clear
+	TWINT bit in TWCR to start transmission */ 
+	TWDR = data;
+ 3d4:	83 b9       	out	0x03, r24	; 3
+	TWCR = (1<<TWINT) | (1<<TWEN);
+ 3d6:	84 e8       	ldi	r24, 0x84	; 132
+ 3d8:	86 bf       	out	0x36, r24	; 54
+	
+	/* Wait for TWINT Flag set. This indicates
+	that the data has been transmitted,
+	and ACK/NACK has been received. */
+	while (BIT_IS_CLEAR(TWCR,TWINT));
+ 3da:	06 b6       	in	r0, 0x36	; 54
+ 3dc:	07 fe       	sbrs	r0, 7
+ 3de:	fd cf       	rjmp	.-6      	; 0x3da <I2C_masterWrite+0x6>
+
+}
+ 3e0:	08 95       	ret
+
+000003e2 <I2C_masterReadWithACK>:
+uint8_t I2C_masterReadWithACK(void) {
+	
+	uint8_t ret_value = 0;
+	
+	/* Clear TWINT Flag , Enable ACK */
+	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);
+ 3e2:	84 ec       	ldi	r24, 0xC4	; 196
+ 3e4:	86 bf       	out	0x36, r24	; 54
+	/* Received data can be read from the TWDR Register when the TWINT Flag
+	is set high by hardware */
+	while (BIT_IS_CLEAR(TWCR,TWINT));
+ 3e6:	06 b6       	in	r0, 0x36	; 54
+ 3e8:	07 fe       	sbrs	r0, 7
+ 3ea:	fd cf       	rjmp	.-6      	; 0x3e6 <I2C_masterReadWithACK+0x4>
+	ret_value = TWDR;
+ 3ec:	83 b1       	in	r24, 0x03	; 3
+	
+	/* return data */
+	return ret_value;
+}
+ 3ee:	08 95       	ret
+
+000003f0 <I2C_masterReadWithNACK>:
+uint8_t I2C_masterReadWithNACK(void) {
+	
+	uint8_t ret_value = 0;
+	
+	/* Clear TWINT Flag , Enable NACK */
+	TWCR = (1<<TWINT) | (1<<TWEN) ;
+ 3f0:	84 e8       	ldi	r24, 0x84	; 132
+ 3f2:	86 bf       	out	0x36, r24	; 54
+	/* Received data can be read from the TWDR Register when the TWINT Flag
+	is set high by hardware */
+	while (BIT_IS_CLEAR(TWCR,TWINT));
+ 3f4:	06 b6       	in	r0, 0x36	; 54
+ 3f6:	07 fe       	sbrs	r0, 7
+ 3f8:	fd cf       	rjmp	.-6      	; 0x3f4 <I2C_masterReadWithNACK+0x4>
+	ret_value = TWDR;
+ 3fa:	83 b1       	in	r24, 0x03	; 3
+	
+	/* return data */
+	return ret_value;
+	
+}
+ 3fc:	08 95       	ret
+
+000003fe <I2C_getStatus>:
+
+uint8_t I2C_getStatus(void) {
+	
+	uint8_t status = 0;
+	/* masking to eliminate first 3 bits and get the last 5 bits (status bits) */
+	status = (TWSR & 0xF8) ;
+ 3fe:	81 b1       	in	r24, 0x01	; 1
+	return status;
+}
+ 400:	88 7f       	andi	r24, 0xF8	; 248
+ 402:	08 95       	ret
+
+00000404 <main>:
+
+uint8_t y[5];
+
+
+int main(void)
+{
+ 404:	cf 93       	push	r28
+ 406:	df 93       	push	r29
+ 408:	00 d0       	rcall	.+0      	; 0x40a <main+0x6>
+ 40a:	00 d0       	rcall	.+0      	; 0x40c <main+0x8>
+ 40c:	00 d0       	rcall	.+0      	; 0x40e <main+0xa>
+ 40e:	cd b7       	in	r28, 0x3d	; 61
+ 410:	de b7       	in	r29, 0x3e	; 62
+   uint8_t val = 0;
+ 412:	19 82       	std	Y+1, r1	; 0x01
+   uint8_t x[] = {0xAA,0xBB,0xCC,0xDD,0xEE};
+ 414:	85 e0       	ldi	r24, 0x05	; 5
+ 416:	e0 e6       	ldi	r30, 0x60	; 96
+ 418:	f0 e0       	ldi	r31, 0x00	; 0
+ 41a:	de 01       	movw	r26, r28
+ 41c:	12 96       	adiw	r26, 0x02	; 2
+ 41e:	01 90       	ld	r0, Z+
+ 420:	0d 92       	st	X+, r0
+ 422:	8a 95       	dec	r24
+ 424:	e1 f7       	brne	.-8      	; 0x41e <main+0x1a>
+	   
+   
+   DDRD  = 0xFF;
+ 426:	8f ef       	ldi	r24, 0xFF	; 255
+ 428:	81 bb       	out	0x11, r24	; 17
+   PORTD = 0x00;
+ 42a:	12 ba       	out	0x12, r1	; 18
+
+   /* Init EEPROM */
+   EEPROM_init();
+ 42c:	0e 94 49 00 	call	0x92	; 0x92 <EEPROM_init>
+   EEPROM_writeByte(0x0000, 0xF0); /* Write 0x0F in the external EEPROM */
+ 430:	60 ef       	ldi	r22, 0xF0	; 240
+ 432:	80 e0       	ldi	r24, 0x00	; 0
+ 434:	90 e0       	ldi	r25, 0x00	; 0
+ 436:	0e 94 50 00 	call	0xa0	; 0xa0 <EEPROM_writeByte>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 43a:	8f e1       	ldi	r24, 0x1F	; 31
+ 43c:	9e e4       	ldi	r25, 0x4E	; 78
+ 43e:	01 97       	sbiw	r24, 0x01	; 1
+ 440:	f1 f7       	brne	.-4      	; 0x43e <main+0x3a>
+ 442:	00 c0       	rjmp	.+0      	; 0x444 <main+0x40>
+ 444:	00 00       	nop
+   _delay_ms(10);
+   EEPROM_readByte(0x0000, &val);  /* Read 0x0F from the external EEPROM */
+ 446:	be 01       	movw	r22, r28
+ 448:	6f 5f       	subi	r22, 0xFF	; 255
+ 44a:	7f 4f       	sbci	r23, 0xFF	; 255
+ 44c:	80 e0       	ldi	r24, 0x00	; 0
+ 44e:	90 e0       	ldi	r25, 0x00	; 0
+ 450:	0e 94 87 00 	call	0x10e	; 0x10e <EEPROM_readByte>
+ 454:	8f e1       	ldi	r24, 0x1F	; 31
+ 456:	9e e4       	ldi	r25, 0x4E	; 78
+ 458:	01 97       	sbiw	r24, 0x01	; 1
+ 45a:	f1 f7       	brne	.-4      	; 0x458 <main+0x54>
+ 45c:	00 c0       	rjmp	.+0      	; 0x45e <main+0x5a>
+ 45e:	00 00       	nop
+   _delay_ms(10);
+   EEPPROM_writePage(0x0000,x,5);
+ 460:	45 e0       	ldi	r20, 0x05	; 5
+ 462:	be 01       	movw	r22, r28
+ 464:	6e 5f       	subi	r22, 0xFE	; 254
+ 466:	7f 4f       	sbci	r23, 0xFF	; 255
+ 468:	80 e0       	ldi	r24, 0x00	; 0
+ 46a:	90 e0       	ldi	r25, 0x00	; 0
+ 46c:	0e 94 d9 00 	call	0x1b2	; 0x1b2 <EEPPROM_writePage>
+ 470:	8f e1       	ldi	r24, 0x1F	; 31
+ 472:	9e e4       	ldi	r25, 0x4E	; 78
+ 474:	01 97       	sbiw	r24, 0x01	; 1
+ 476:	f1 f7       	brne	.-4      	; 0x474 <__stack+0x15>
+ 478:	00 c0       	rjmp	.+0      	; 0x47a <__stack+0x1b>
+ 47a:	00 00       	nop
+   _delay_ms(10);
+   EEPROM_readPage(0x0000,y,5);
+ 47c:	45 e0       	ldi	r20, 0x05	; 5
+ 47e:	66 e6       	ldi	r22, 0x66	; 102
+ 480:	70 e0       	ldi	r23, 0x00	; 0
+ 482:	80 e0       	ldi	r24, 0x00	; 0
+ 484:	90 e0       	ldi	r25, 0x00	; 0
+ 486:	0e 94 21 01 	call	0x242	; 0x242 <EEPROM_readPage>
+   while(1)
+   {
+	   PORTD = val; /* out the read value from the external EEPROM */
+ 48a:	89 81       	ldd	r24, Y+1	; 0x01
+ 48c:	82 bb       	out	0x12, r24	; 18
+ 48e:	fd cf       	rjmp	.-6      	; 0x48a <__stack+0x2b>
+
+00000490 <__udivmodsi4>:
+ 490:	a1 e2       	ldi	r26, 0x21	; 33
+ 492:	1a 2e       	mov	r1, r26
+ 494:	aa 1b       	sub	r26, r26
+ 496:	bb 1b       	sub	r27, r27
+ 498:	fd 01       	movw	r30, r26
+ 49a:	0d c0       	rjmp	.+26     	; 0x4b6 <__udivmodsi4_ep>
+
+0000049c <__udivmodsi4_loop>:
+ 49c:	aa 1f       	adc	r26, r26
+ 49e:	bb 1f       	adc	r27, r27
+ 4a0:	ee 1f       	adc	r30, r30
+ 4a2:	ff 1f       	adc	r31, r31
+ 4a4:	a2 17       	cp	r26, r18
+ 4a6:	b3 07       	cpc	r27, r19
+ 4a8:	e4 07       	cpc	r30, r20
+ 4aa:	f5 07       	cpc	r31, r21
+ 4ac:	20 f0       	brcs	.+8      	; 0x4b6 <__udivmodsi4_ep>
+ 4ae:	a2 1b       	sub	r26, r18
+ 4b0:	b3 0b       	sbc	r27, r19
+ 4b2:	e4 0b       	sbc	r30, r20
+ 4b4:	f5 0b       	sbc	r31, r21
+
+000004b6 <__udivmodsi4_ep>:
+ 4b6:	66 1f       	adc	r22, r22
+ 4b8:	77 1f       	adc	r23, r23
+ 4ba:	88 1f       	adc	r24, r24
+ 4bc:	99 1f       	adc	r25, r25
+ 4be:	1a 94       	dec	r1
+ 4c0:	69 f7       	brne	.-38     	; 0x49c <__udivmodsi4_loop>
+ 4c2:	60 95       	com	r22
+ 4c4:	70 95       	com	r23
+ 4c6:	80 95       	com	r24
+ 4c8:	90 95       	com	r25
+ 4ca:	9b 01       	movw	r18, r22
+ 4cc:	ac 01       	movw	r20, r24
+ 4ce:	bd 01       	movw	r22, r26
+ 4d0:	cf 01       	movw	r24, r30
+ 4d2:	08 95       	ret
+
+000004d4 <_exit>:
+ 4d4:	f8 94       	cli
+
+000004d6 <__stop_program>:
+ 4d6:	ff cf       	rjmp	.-2      	; 0x4d6 <__stop_program>
